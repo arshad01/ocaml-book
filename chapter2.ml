@@ -161,10 +161,48 @@ let lex_tree_select_alt n dict = if (n <= 0) then
                                  else lex_tree_to_list_n n dict;;
 
 
+(* ============== Graph Traversal ================= *)
 
+type 'a graph = ('a * 'a list) list;;
 
+(* Helper function find_vtx *)
+let find_vtx v (g : 'a graph) = 
+    try (List.find (function (x,_) -> x = v) g)
+    with
+       Not_found -> failwith "Vertex not found in graph";;
 
+(* Q1: function insert_vtx *)
+let insert_vtx v (g : 'a graph) = 
+  if (not (List.exists (function (x,_) -> (x = v)) g)) then 
+    (v,[]) :: g
+  else 
+    g;;
 
+(* Q2: function insert_edge *)
+let insert_edge v1 v2 (g : 'a graph) = 
+   let (_,e1) = find_vtx v1 g in 
+   let (_,_) = find_vtx v2 g in (* Make sure v2 also exists in the graph *)
+     if List.exists (function x -> x = v2) e1 then g
+     else      
+       let g_new = List.filter (function (x,_) -> (x <> v1)) g in
+          [(v1,(v2 :: e1))] @ g_new;;
+
+(* function to insert undirected (bi-directional) edges *)
+let insert_edge_und v1 v2 g = insert_edge v2 v1 (insert_edge v1 v2 g);;
+
+(* Q3: function has_edges_to *)
+let has_edges_to v (g : 'a graph) = 
+   let (_,e) = find_vtx v g
+   in
+     e;;
+
+(* Q4: function has_edges_from *)
+let has_edges_from v g =
+   let (_,_) = find_vtx v g
+   in
+     let is_adj e = List.exists (function x -> x = v) e
+   in
+     List.map (function (x,_) -> x) (List.filter (function (_,y) -> (is_adj y)) g);;
 
 
 
