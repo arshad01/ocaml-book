@@ -60,7 +60,7 @@ let new_merge l1 l2 = if (l1.func <> l2.func)
                           is_ord = true };;
 
 *)
-
+(* Assume the two list have same ordering functions *)
 let new_merge l1 l2 = { lst = (merge (l1.func) (new_sort l1).lst (new_sort l2).lst); 
                         func=l1.func; 
                         is_ord=true };;
@@ -88,8 +88,10 @@ let rec str_to_list str = match str with
    | "" -> []
    | _  -> (String.get str 0) :: (str_to_list (String.sub str 1 ((String.length str) - 1)));;
 
+(* Helper function to convert list of chars to string *)
 let list_to_str x = String.concat "" (List.map (String.make 1) x);;
 
+(* Helper function to convert a lex tree to list of strings contained in the tree *)
 let lex_tree_to_list tree =
    let rec tree_to_list_i wlist ltree = match ltree with
     | [] -> []
@@ -99,13 +101,29 @@ let lex_tree_to_list tree =
    in
      List.map (list_to_str) (tree_to_list_i [] tree);;
 
+(* Helper function to convert a lex tree to list of strings of length n contained in the tree *)
+let lex_tree_to_list_n len tree =
+   let rec tree_to_list_i wlist ltree = match ltree with
+    | [] -> []
+    | Letter(c,f,n)::tt -> (match f with
+                           | false -> (tree_to_list_i (wlist @ [c]) n)
+                           | true -> let app = wlist @ [c] 
+                                     in
+                                       if ((List.length app) = len) then
+                                          [app] @ (tree_to_list_i app n) 
+                                       else
+                                          tree_to_list_i app n) @ (tree_to_list_i wlist tt)
+   in
+     List.map (list_to_str) (tree_to_list_i [] tree);;
+
 (* Q1: function exists *)
 let lex_tree_exists str =
    let rec exists_i chlist flag ltree = match ltree with
      | [] -> if (chlist = []) then flag else false
      | Letter (c,f,n)::tt -> match chlist with
                              | [] -> flag
-                             | h::t -> if (h = c) then exists_i t f n 
+                             | h::t -> if (h = c) then exists_i t f n (* Must pass word end flag so as to
+                                                                         avoid matching partial words *)
                                        else exists_i chlist false tt
    in
      exists_i (str_to_list str) false;;
@@ -127,13 +145,20 @@ let lex_tree_insert str =
     insert_i (str_to_list str);;
 
 (* Q3: function construct *)
-let lex_tree_construct =
-  let rec construct_i wlist dict = match wlist with
-      | [] -> dict
-      | h::t -> construct_i t (lex_tree_insert h dict);;
+let rec lex_tree_construct wlist dict = match wlist with
+     | [] -> dict
+     | h::t -> lex_tree_construct t (lex_tree_insert h dict);;
 
+(* Q4: function verify *)
+let lex_tree_verify wlist dict = List.filter (function x -> not (lex_tree_exists x dict)) wlist;;
 
+(* Q5: function select *)
+let lex_tree_select n dict = List.filter (function x -> (String.length x) = n) (lex_tree_to_list dict);;
 
+(* Another impl using lex_tree_to_list_n function *)
+let lex_tree_select_alt n dict = if (n <= 0) then 
+                                    failwith "n should be > 0" 
+                                 else lex_tree_to_list_n n dict;;
 
 
 
