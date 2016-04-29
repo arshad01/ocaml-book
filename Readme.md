@@ -1,0 +1,1 @@
+Chapter execises for the book [Developing Applications With Objective Caml][http://caml.inria.fr/pub/docs/oreilly-book/index.html]
