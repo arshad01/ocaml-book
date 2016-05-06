@@ -265,9 +265,35 @@ assert_true (sp = sp_res) "2.5";;
 
 (* ================= Set of Prime Numbers ================= *)
 
+(* Q1: function divisible *)
+let rec divisible n = function
+  | [] -> false
+  | h::t -> if (n mod h) = 0 then true
+            else divisible n t;;
 
+(* Q2: function next *)
+let nextp plist =
+   let rec nextp_i n = if (divisible n plist) then nextp_i (n+2) else n
+   in
+     nextp_i ((List.hd (List.rev plist)) + 2);;
 
+(* Q3: type setprime *)
+type 'a enum = { mutable i : 'a list; f : 'a list -> 'a list };;
 
+let next e = let x = e.i in e.i <- (e.f e.i); x;;
+
+let setprime = { i=[2;3;5;7;11;13]; f=fun x -> x @ [(nextp x)] };;
+
+print_string "\nTesting Set of Primes\n"
+
+let plist = [2;3;5;7;11;13];;
+
+assert_true  ((divisible 15 plist) = true) "3.1.1";;
+assert_false ((divisible 23 plist) = true) "3.1.2";;
+assert_true  (nextp plist = 17) "3.2.1";;
+assert_false (nextp plist = 23) "3.2.2";;
+assert_true  (next setprime = plist) "3.3.1";;
+assert_true  (next setprime = plist @ [17]) "3.3.2";;
 
 
 
