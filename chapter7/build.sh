@@ -1,0 +1,1 @@
+ocamlc -custom -o ch5 graphics.cma polar.ml bitmaped.ml worm.ml main.ml
