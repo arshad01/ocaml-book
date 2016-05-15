@@ -71,6 +71,7 @@ let print_system (s:syst) =
     
 
 let test_print_system () =
+    let () = printf "---------- Print System ---------\n" in
     let a = lists_to_mat [[10.;7.;8.;7.]; [7.;5.;6.;5.]; [8.;6.;10.;9.]; [7.;5.;9.;10.]] in
     let x = list_to_vect [9.19999999999968; -12.5999999999994632; 4.49999999999985789; -1.09999999999991505] in
     let y = list_to_vect [32.1;22.9;33.1;30.9] in
