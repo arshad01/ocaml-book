@@ -115,10 +115,10 @@ print_string "Save Image Tdc\n";;
 save_image_tdc tdc1 "img.tdc";;
 
 let tdc2 = load_image_tdc "img.tdc";;
-let test1 () = assert_true (tdc1=tdc2) "Test 1 - Compare saved and loaded Tdc";;
+let test1 () = assert_true (tdc1=tdc2) "1 - Compare saved and loaded Tdc";;
 
 let im2 = from_image_tdc tdc2;;
-let test2 () = assert_true (im1=im2) "Test 2 - Compare original and uncompressed image";;
+let test2 () = assert_true (im1=im2) "2 - Compare original and uncompressed image";;
 
 
 
