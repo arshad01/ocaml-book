@@ -49,7 +49,7 @@ let find_index c pal =
   let () = Array.iteri add pal in
     Hashtbl.find ht c;;
 
-let encode im pal =
+(*let encode im pal =
     if Array.length pal > 255 then
        failwith "Number of colors is > 255"
     else
@@ -68,7 +68,24 @@ let encode im pal =
               | Not_found -> failwith "Incompatible palette"
            done
         done;
-        !imgs;; 
+        !imgs;; *)
+
+let encode im pal =
+    if Array.length pal > 255 then
+       failwith "Number of colors is > 255"
+    else
+       let n = Array.length pal in
+       let rows = Array.length im in
+       let cols = Array.length im.(0) in
+       let imgs = Bytes.create (rows*cols) in
+       let ht = Hashtbl.create n in
+       let add i x = Hashtbl.add ht x i in
+       let () = Array.iteri add pal in
+       let find_ind c = Hashtbl.find ht c in
+        for i=0 to rows - 1 do
+           Array.iteri (function j -> function x -> Bytes.set imgs (i*cols+j) (char_of_int (find_ind x))) im.(i)
+        done;
+        imgs;;
 
 
 type image_tdc = { palette : Graphics.color array; image : string; rows:int; cols:int };;
