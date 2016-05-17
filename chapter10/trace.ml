@@ -3,7 +3,9 @@
 
 (*
 List.fold_left (-) 1 [2;3;4;5];;
-List.fold_left <-- <fun>                                                                                                                  List.fold_left --> <fun>                                                                                                                  List.fold_left* <-- <poly>                                                                                                                
+List.fold_left <-- <fun>                                                                                                                                                              
+List.fold_left --> <fun>
+List.fold_left* <-- <poly>
 List.fold_left* --> <fun>
 List.fold_left** <-- [<poly>; <poly>; <poly>; <poly>]
 List.fold_left <-- <fun>
@@ -41,7 +43,9 @@ let rec fold_left_int f (s:int) (l:int list) =
 
 (*
 fold_left_int (-) 1 [2;3;4;5];;
-fold_left_int <-- <fun>                                                                                                                   fold_left_int --> <fun>                                                                                                                   fold_left_int* <-- 1                                                                                                                      
+fold_left_int <-- <fun>  
+fold_left_int --> <fun>
+fold_left_int* --> 1
 fold_left_int* --> <fun>
 fold_left_int** <-- [2; 3; 4; 5]
 fold_left_int <-- <fun>
