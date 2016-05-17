@@ -36,6 +36,9 @@ List.fold_left** --> <poly>
 - : int = -13
 *)
 
+(* Trace for fold_left_int shows monomorphic values at the top level. Note, this function
+   is not defined with a local fucntion *)
+
 let rec fold_left_int f (s:int) (l:int list) = 
     match l with
     | [] -> s
