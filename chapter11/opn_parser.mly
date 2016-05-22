@@ -39,9 +39,9 @@ exp:
  ;
 
 opr:
+  | Lminus opr      { (-(List.hd $2))::(List.tl $2) }
+  | Lplus opr       { $2 }
   | Lint            { [$1] }
-  | Lminus Lint     { [(-$2)] }
-  | Lplus Lint      { [$2] }
   | Lint opr        { [$1] @ $2 }
   | exp opr         { [$1] @ $2 }
   | exp             { [$1] }
