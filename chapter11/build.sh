@@ -15,8 +15,8 @@ ocamlc -c opn_parser_test.ml
 ocamlc -o ev opn_lexer.cmo opn_parser.cmo evaluator.cmo
 ocamlc -o opt opn_lexer.cmo opn_parser.cmo opn_parser_test.cmo
 echo "Running command line evaluator"
-echo 'echo "-(ADD (ADD (ADD 1 2) 2) (ADD 4 5) 7 (ADD 10 11 12) 13 +(MUL 2 +3))" | ./ev'
-echo "-(ADD (ADD (ADD 1 2) 2) (ADD 4 5) 7 (ADD 10 11 12) 13 +(MUL 2 +3))" | ./ev
+echo 'echo "-(ADD -(ADD (ADD 1 2) 2) (ADD 4 5) +7 (ADD 10 11 12) 13 +(MUL -2 +3))" | ./ev'
+echo "-(ADD -(ADD (ADD 1 2) 2) (ADD 4 5) +7 (ADD 10 11 12) 13 +(MUL -2 +3))" | ./ev
 ./opt
 echo "Cleaning up..."
 rm *.cmo *.cmi filtercmt parse_cmt.ml.clean ev opt opn_parser.ml opn_lexer.ml opn_parser.mli
