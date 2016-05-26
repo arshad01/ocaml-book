@@ -12,6 +12,15 @@ echo "Running Polymorphic print tests"
 echo
 ./pt
 
-echo 
+echo "Building float_matrix"
+echo
+cc -c -I/usr/local/lib/ocaml fmat.c
+ocamlc -custom fmat.c -o fmat fmat.ml 
+ocamlfind ocamlmktop -custom fmat.o -o futop -thread -linkpkg -package utop utopfmat.ml
+
+echo "Running float_matrix tests"
+echo
+./fmat
+
 echo "Cleaning up..."
-rm *.o myutop pt *.cmo *.cmi
+rm *.o myutop pt fmat futop *.cmo *.cmi
