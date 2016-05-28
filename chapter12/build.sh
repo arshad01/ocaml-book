@@ -15,12 +15,32 @@ echo
 echo "Building float_matrix"
 echo
 cc -c -I/usr/local/lib/ocaml fmat.c
-ocamlc -custom fmat.c -o fmat fmat.ml 
+ocamlc -custom fmat.o -o fmat fmat.ml 
 ocamlfind ocamlmktop -custom fmat.o -o futop -thread -linkpkg -package utop utopfmat.ml
 
 echo "Running float_matrix tests"
 echo
 ./fmat
 
+echo
+echo "Building Word Count (Bytecode)"
+echo
+cc -I/usr/local/lib/ocaml -c wc.c
+ocamlc -custom -o wc wc.o wc.ml
+
+echo "Running Word Count (Bytecode)"
+echo
+./wc test.txt test.txt
+
+echo
+echo "Building Word Count (Native)"
+echo
+#cc -DNAT -I/usr/local/lib/ocaml -c wc.c
+#ocamlopt -o wcnat wc.o wc.ml
+
+echo "Running Word Count (Native)"
+echo
+#./wcnat test.txt test.txt
+
 echo "Cleaning up..."
-rm *.o myutop pt fmat futop *.cmo *.cmi
+rm *.o myutop pt fmat wc futop *.cmo *.cmi

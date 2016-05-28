@@ -1,0 +1,4 @@
+This is a test text for word count program.
+There are some repeated words and some unique words.
+Unique words are the words that only appear once. Repeated words are the words that appear multiple times. Words are
+case-insensitive.
