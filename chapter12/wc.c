@@ -192,9 +192,16 @@ value wc_c (value args)
 #ifdef NAT
 int main(int argc, char const *argv[])
 {
+    char * caml_argv[argc+1];
+    int i;
+
     CAMLlocal1(wc_ocaml);
 
-    caml_main((char **)argv);
+    for (i=0; i<argc; i++)
+        caml_argv[i] = (char *)argv[i];
+    caml_argv[argc] = NULL;
+
+    caml_main(caml_argv);
 
     wc_ocaml = *(caml_named_value("wc_ocaml"));
 
