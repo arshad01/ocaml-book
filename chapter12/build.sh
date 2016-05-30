@@ -35,12 +35,12 @@ echo
 echo
 echo "Building Word Count (Native)"
 echo
-#cc -DNAT -I/usr/local/lib/ocaml -c wc.c
-#ocamlopt -o wcnat wc.o wc.ml
+cc -DNAT -I/usr/local/lib/ocaml -c wc.c
+ocamlopt -o wcnat wc.o wc.ml
 
 echo "Running Word Count (Native)"
 echo
-#./wcnat test.txt test.txt
+./wcnat test.txt test.txt
 
 echo "Cleaning up..."
-rm *.o myutop pt fmat wc futop *.cmo *.cmi
+rm *.o myutop pt fmat wc wcnat futop *.cmo *.cmi *.cmx
