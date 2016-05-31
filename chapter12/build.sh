@@ -26,7 +26,7 @@ echo
 echo "Building Word Count (Bytecode)"
 echo
 cc -I/usr/local/lib/ocaml -c wc.c
-ocamlc -custom -o wc wc.o wc.ml
+ocamlc -custom -o wc wc.o wcnat.ml wc.ml
 
 echo "Running Word Count (Bytecode)"
 echo
@@ -35,8 +35,10 @@ echo
 echo
 echo "Building Word Count (Native)"
 echo
+# To avoid duplicate symbol errors during linking phase, 
+# name the C object file and .ml file differently
 cc -DNAT -I/usr/local/lib/ocaml -c wc.c
-ocamlopt -o wcnat wc.o wc.ml
+ocamlopt -o wcnat wc.o wcnat.ml
 
 echo "Running Word Count (Native)"
 echo
