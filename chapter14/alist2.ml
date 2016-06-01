@@ -23,7 +23,7 @@ module type USER_ALIST =
         val  mem : 'a -> ('a, 'b) t -> bool
     end;;
 
-module Alist =
+module Alist : ALIST =
     struct
         type ('a, 'b) t = ('a * 'b) list
         let  create () = []
