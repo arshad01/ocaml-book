@@ -39,7 +39,7 @@ module UserAlist = (Alist:USER_ALIST with type ('a,'b) t = ('a,'b) Alist.t);;
 let x = AdmAlist.add "1" 1 (AdmAlist.create ()) in 
     let () = Test.assert_true (UserAlist.mem "1" x) "1" in
     let () = Test.assert_false (UserAlist.mem "100" x) "2" in
-    let () = Test.assert_true ((UserAlist.get "1" x) == 1) "3" in
+    let () = Test.assert_true ((UserAlist.get "1" x) = 1) "3" in
     let xx = AdmAlist.rem "1" x in
     let () = Test.assert_false (UserAlist.mem "1" xx) "4" in
     ();;
