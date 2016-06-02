@@ -15,5 +15,13 @@ echo "Running Association List (with functor)"
 ./alist
 
 echo
+echo "Building Paremetrized Vectors"
+ocamlc -o pvect test.cmo pvect.ml
+echo
+
+echo "Running Paremetrized Vectors"
+./pvect
+
+echo
 echo "Cleaning up..."
-rm alist alist2 *.cmo *.cmi
+rm alist alist2 pvect *.cmo *.cmi
