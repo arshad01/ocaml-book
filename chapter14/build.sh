@@ -23,5 +23,13 @@ echo "Running Paremetrized Vectors"
 ./pvect
 
 echo
+echo "Building Lexical Tree"
+ocamlc -o lextree test.cmo lextree.ml
+echo
+
+echo "Running Lexical Tree"
+./lextree
+
+echo
 echo "Cleaning up..."
-rm alist alist2 pvect *.cmo *.cmi
+rm alist alist2 pvect lextree *.cmo *.cmi
