@@ -97,7 +97,7 @@ Test.assert_true  (CharDict.exists "falsed" (CharDict.insert "falsed" d1)) "3 (i
 Test.assert_true  ((CharDict.verify ["far"; "fare"; "fared"] d1) = ["fared"]) "4 (verify)";;
 Test.assert_false ((CharDict.verify ["far"; "fare"; "fared"] d1) = ["fare"; "fared"]) "5 (verify)";;
 Test.assert_true  ((CharDict.select 5 d1) = ["false"; "fried"]) "6 (select)";;
-
+Test.assert_true  ((CharDict.select 1 d1) = []) "7 (select)";;
 
 
 
